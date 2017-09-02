@@ -7,6 +7,8 @@ var config={
     user:"nssbanjani",
     database:"nssbanjani",
     host:"db.imad.hasura-app.io",
+    port:"5432",
+    
     
     
     
