@@ -8,7 +8,7 @@ var config={
     database:"nssbanjani",
     host:"db.imad.hasura-app.io",
     port:"5432",
-    
+    password:process.env.DB_PASSWORD
     
     
     
@@ -20,9 +20,18 @@ app.use(morgan('combined'));
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
+var pool=new Pool(config);
 app.get('/test-db',function(req,res){
     //select a request 
     //return a response with the results
+    pool.query("SELECT * FROM TEST",function(err,result){
+     if(err){
+         res.status(500).send(err.tostring());
+     }else{
+         res.send(JSON.stringify(result));
+     }
+       
+    });
 });
 app.get('/Article-one',function(req,res){
     res.sendFile(path.join(__dirname, 'ui', 'Article-one.html'));
